@@ -1,8 +1,8 @@
 # Parla! — Italian travel phrasebook (PWA)
 
-An offline-first progressive web app: 130 travel phrases in 10 categories, each with
-English, Italian, a plain-English pronunciation guide, and a button that speaks the
-Italian out loud.
+An offline-first progressive web app: 45 travel phrases in 5 sections, laid out two cards
+to a row. Each card shows the English and the Italian; tapping it speaks the Italian out
+loud.
 
 ## Files
 
@@ -11,6 +11,7 @@ index.html              the whole app (HTML + CSS + JS + phrase data, one file)
 sw.js                   service worker — makes it work with no signal
 manifest.webmanifest    makes it installable on the Android home screen
 icons/                  app icons (192, 512, maskable, apple-touch)
+.nojekyll               tells GitHub Pages to serve the files as-is
 ```
 
 ## How the audio works
@@ -32,52 +33,64 @@ Settings panel shows which voice it found and whether it is offline-ready.
 
 ## Putting it on your phone
 
-A PWA has to be served over **https** to be installable and to run offline, so the
-folder needs to live on a host. Any of these works — pick one:
+Configured for **https://jeffwhoughton.github.io/italianphrases/** — the manifest's
+`scope`, `start_url` and `id` all point at that sub-path, so publish it to a repo
+named `italianphrases` under your account.
 
-**Netlify Drop (fastest, no account needed to start)**
-1. Go to https://app.netlify.com/drop
-2. Drag this whole `italian-phrases` folder onto the page
-3. You get a URL like `https://something-random.netlify.app` — open it on your phone
+```bash
+cd C:\Users\Jeff\Documents\italian-phrases
+git init -b main
+git add .
+git commit -m "Parla! Italian phrasebook"
+git remote add origin https://github.com/jeffwhoughton/italianphrases.git
+git push -u origin main
+```
 
-**GitHub Pages (free, permanent)**
-1. Create a repo, push these files to it
-2. Settings → Pages → Source: `main` / root
-3. Your app is at `https://<user>.github.io/<repo>/`
+Then in the repo: **Settings → Pages → Source: Deploy from a branch → `main` / `/ (root)`**.
+Give it a minute and it's live at https://jeffwhoughton.github.io/italianphrases/
 
-**Cloudflare Pages** — same idea: upload the folder, get an https URL.
+(The `.nojekyll` file in this folder stops GitHub's Jekyll build from touching the files.)
 
-Then on the phone, in Chrome: **⋮ menu → Add to Home screen** (or *Install app*).
-It opens full-screen with no address bar, and the service worker keeps a copy of
-everything on the device, so it loads with the phone in airplane mode.
+On the phone, open that URL in Chrome → **⋮ menu → Add to Home screen** (or
+*Install app*). It opens full-screen with no address bar, and the service worker keeps
+a copy of everything on the device, so it loads with the phone in airplane mode.
 
-Open it once on wifi before you leave so the service worker can cache it.
+Open it once on wifi before you leave, so the service worker can finish caching.
+
+**If you ever move it to a different address**, change the three `/italianphrases/`
+paths in `manifest.webmanifest` and the `canonical`/`og:` tags in `index.html` to match.
 
 ## Using it
 
-- **Speaker button** — say the phrase at normal speed
-- **½×** — say it slowly, for practising or for someone who didn't catch it
-- **☆** — pin a phrase to the **Saved** tab (survives closing the app)
-- **Search** — matches English, Italian, or the pronunciation, and ignores accents
+- **Tap a card** — speaks the Italian. The whole card is the button, so it's hard to miss
+  on a moving train. Tapping the card that's currently talking stops it.
+- **☆** — pins a phrase to **Saved** at the top of the list. A pinned phrase moves there
+  rather than being copied, so it only ever appears once.
+- **The chips in the header** stay on screen and jump you to a section; the one you're
+  currently looking at is highlighted as you scroll.
 - **Settings → Speaking about yourself** — switches gendered phrases between
-  *"Sono vegetariano"* and *"Sono vegetariana"*
-- **Settings → Speaking speed** — the default 0.90× is a little slower than a
-  native speaker, which is easier for a waiter to parse from a phone speaker
+  *"Sono vegetariano"* and *"Sono vegetariana"*.
+- **Settings → Speaking speed** — defaults to 0.70×, well under native pace, which is what
+  makes it intelligible from a phone speaker in a noisy room.
 
 ## Editing the phrases
 
-All 130 phrases live in one `const DATA = [...]` array near the top of the
-`<script>` block in `index.html`. Each entry looks like:
+All 45 phrases live in one `const DATA = [...]` array near the top of the `<script>` block
+in `index.html`. Each entry looks like:
 
 ```js
-{en:"I am vegetarian", it:"Sono vegetariano", ph:"SOH-noh veh-jeh-tah-RYAH-noh",
- f:{it:"Sono vegetariana", ph:"SOH-noh veh-jeh-tah-RYAH-nah"},
- note:"optional tip shown under the phrase"}
+{en:"I am vegetarian", it:"Sono vegetariano",
+ f:"Sono vegetariana",          // optional: the feminine form for the gender toggle
+ note:"short tip shown under the phrase",   // optional, keep it to a few words
+ wide:true}                     // optional: card spans both columns, for long lines
 ```
 
-`ph` is the pronunciation guide — CAPITALS mark the stressed syllable. `f` is the
-feminine form and is optional. To add a category, copy one of the
-`{id:…, en:…, it:…, items:[…]}` blocks.
+To add a section, copy one of the `{id:…, en:…, it:…, items:[…]}` blocks. The header chips,
+the phrase count in the footer and the scroll-spy all derive from `DATA`, so nothing else
+needs updating.
 
-After editing, bump `const VERSION = 'parla-v1'` in `sw.js` so installed phones
-pick up the new version instead of serving the cached old one.
+Notes cost vertical space in a two-column layout — a card with a note is roughly a third
+taller than one without — so only add one where it changes what you'd say.
+
+After editing, bump `const VERSION = 'parla-v8'` in `sw.js` so installed phones pick up the
+new version instead of serving the cached old one.

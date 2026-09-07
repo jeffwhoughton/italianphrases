@@ -6,7 +6,14 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<title>Parla! — Italian Travel Phrases</title>
+<link rel="canonical" href="https://jeffwhoughton.github.io/italianphrases/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://jeffwhoughton.github.io/italianphrases/">
+<meta property="og:title" content="Parla! — Italian Travel Phrases">
+<meta property="og:description" content="An offline Italian phrasebook for travelling in Italy, with spoken pronunciation.">
+<meta property="og:image" content="https://jeffwhoughton.github.io/italianphrases/icons/icon-512.png">
+<meta name="twitter:card" content="summary">
+<title>Parla! Italian Phrasebook</title>
 <meta name="theme-color" content="#0e1116">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -15,160 +22,148 @@
   :root{
     --bg:#f7f7f5; --bg2:#ffffff; --line:#e2e2dd; --line2:#cfcfc8;
     --ink:#14171c; --ink2:#5c6470; --ink3:#8a919c;
-    --grn:#0f7a4d; --red:#c62b32; --accent:#0f7a4d;
+    --accent:#0f7a4d; --star:#d99120;
     --chip:#ffffff; --chipink:#3d4450;
-    --shadow:0 1px 2px rgba(16,20,26,.06), 0 6px 18px rgba(16,20,26,.05);
-    --radius:16px;
+    --shadow:0 1px 2px rgba(16,20,26,.05), 0 4px 12px rgba(16,20,26,.04);
     --safe-b:env(safe-area-inset-bottom,0px);
+    --head:132px;
   }
-  :root:not([data-theme="light"]){}
   @media (prefers-color-scheme:dark){
     :root:not([data-theme="light"]){
       --bg:#0e1116; --bg2:#161b22; --line:#242c36; --line2:#323b47;
       --ink:#eef1f5; --ink2:#a2acba; --ink3:#717d8c;
-      --grn:#39c98a; --red:#ff6b70; --accent:#39c98a;
+      --accent:#39c98a; --star:#e8a33d;
       --chip:#1b212a; --chipink:#c6cedb;
-      --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.28);
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 6px 18px rgba(0,0,0,.25);
     }
   }
   :root[data-theme="dark"]{
     --bg:#0e1116; --bg2:#161b22; --line:#242c36; --line2:#323b47;
     --ink:#eef1f5; --ink2:#a2acba; --ink3:#717d8c;
-    --grn:#39c98a; --red:#ff6b70; --accent:#39c98a;
+    --accent:#39c98a; --star:#e8a33d;
     --chip:#1b212a; --chipink:#c6cedb;
-    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.28);
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 6px 18px rgba(0,0,0,.25);
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-  html,body{overflow-x:hidden}
   body{
     margin:0;background:var(--bg);color:var(--ink);
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
     font-size:16px;line-height:1.45;
-    padding-bottom:calc(28px + var(--safe-b));
-    overscroll-behavior-y:contain;
+    padding-bottom:calc(10px + var(--safe-b));
   }
-  button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
-  input{font:inherit}
+  button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-align:left}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
   /* ---------- header ---------- */
   header{
     position:sticky;top:0;z-index:50;background:var(--bg);
-    border-bottom:1px solid var(--line);
-    padding:10px 14px 0;
+    border-bottom:1px solid var(--line);padding:9px 12px 8px;
   }
-  .bar{display:flex;align-items:center;gap:10px;margin-bottom:9px}
-  .brand{display:flex;align-items:baseline;gap:8px;min-width:0}
-  .brand h1{
-    margin:0;font-size:19px;letter-spacing:-.02em;font-weight:800;white-space:nowrap;
-  }
-  .flag{display:inline-flex;height:13px;width:20px;border-radius:3px;overflow:hidden;box-shadow:0 0 0 1px var(--line2) inset;flex:none;align-self:center}
+  .bar{display:flex;align-items:center;gap:9px;margin-bottom:8px}
+  .brand{display:flex;align-items:center;gap:8px;min-width:0}
+  .brand h1{margin:0;font-size:18px;letter-spacing:-.02em;font-weight:800;white-space:nowrap}
+  .flag{display:inline-flex;height:12px;width:19px;border-radius:3px;overflow:hidden;box-shadow:0 0 0 1px var(--line2) inset;flex:none}
   .flag i{flex:1}
   .flag i:nth-child(1){background:#008C45}
   .flag i:nth-child(2){background:#fff}
   .flag i:nth-child(3){background:#CD212A}
   .spacer{flex:1}
   .iconbtn{
-    width:38px;height:38px;border-radius:11px;display:grid;place-items:center;
+    width:36px;height:36px;border-radius:10px;display:grid;place-items:center;
     background:var(--chip);border:1px solid var(--line);color:var(--chipink);flex:none;
   }
   .iconbtn:active{transform:scale(.94)}
-  .iconbtn.on{background:var(--accent);border-color:var(--accent);color:#fff}
-  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .iconbtn.on{color:#08120d}}
-  :root[data-theme="dark"] .iconbtn.on{color:#08120d}
 
-  .searchwrap{position:relative;margin-bottom:9px}
-  .searchwrap svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--ink3)}
-  #q{
-    width:100%;padding:11px 40px 11px 38px;border-radius:12px;
-    border:1px solid var(--line);background:var(--bg2);color:var(--ink);
-    outline:none;font-size:16px;
-  }
-  #q:focus{border-color:var(--accent)}
-  #clearq{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:30px;height:30px;border-radius:9px;display:none;place-items:center;color:var(--ink3)}
-  #clearq.show{display:grid}
-
-  .cats{display:flex;gap:7px;overflow-x:auto;padding:0 0 10px;scrollbar-width:none;-ms-overflow-style:none}
-  .cats::-webkit-scrollbar{display:none}
+  .cats{display:flex;flex-wrap:wrap;gap:5px}
   .cat{
-    flex:none;padding:7px 13px;border-radius:999px;background:var(--chip);
-    border:1px solid var(--line);color:var(--chipink);font-size:14px;font-weight:600;white-space:nowrap;
+    padding:5px 10px;border-radius:999px;background:var(--chip);
+    border:1px solid var(--line);color:var(--chipink);
+    font-size:12.5px;font-weight:600;white-space:nowrap;line-height:1.35;
   }
-  .cat[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
-  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .cat[aria-pressed="true"]{color:#08120d}}
-  :root[data-theme="dark"] .cat[aria-pressed="true"]{color:#08120d}
+  .cat[aria-current="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .cat[aria-current="true"]{color:#08120d}}
+  :root[data-theme="dark"] .cat[aria-current="true"]{color:#08120d}
+  .cat.saved[aria-current="true"]{background:var(--star);border-color:var(--star);color:#1a1204}
+  .cat:active{transform:scale(.96)}
 
   /* ---------- banner ---------- */
   .banner{
-    margin:12px 14px 0;padding:11px 13px;border-radius:13px;
+    margin:10px 12px 0;padding:10px 12px;border-radius:12px;
     background:var(--bg2);border:1px solid var(--line);box-shadow:var(--shadow);
-    font-size:13.5px;color:var(--ink2);display:none;gap:10px;align-items:flex-start;
+    font-size:13px;color:var(--ink2);display:none;gap:9px;align-items:flex-start;
   }
   .banner.show{display:flex}
   .banner b{color:var(--ink)}
-  .banner .x{margin-left:auto;color:var(--ink3);flex:none;padding:0 2px}
+  .banner .x{margin-left:auto;color:var(--ink3);flex:none}
   .banner button.link{color:var(--accent);font-weight:700;text-decoration:underline;padding:0}
 
-  /* ---------- list ---------- */
-  main{padding:0 14px}
+  /* ---------- sections ---------- */
+  main{padding:0 12px}
   .grouphead{
-    display:flex;align-items:center;gap:9px;
-    margin:22px 2px 9px;font-size:12px;font-weight:800;letter-spacing:.10em;text-transform:uppercase;color:var(--ink3);
+    display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;
+    margin:18px 2px 7px;font-size:11.5px;font-weight:800;
+    letter-spacing:.10em;text-transform:uppercase;color:var(--ink3);
+    scroll-margin-top:calc(var(--head) + 6px);
   }
-  .grouphead .it{font-weight:600;letter-spacing:.02em;text-transform:none;font-size:12.5px;color:var(--ink3);opacity:.75}
-  .grouphead:first-child{margin-top:14px}
+  .grouphead:first-child{margin-top:12px}
+  .grouphead .sub{font-weight:600;letter-spacing:.01em;text-transform:none;font-size:12px;opacity:.7}
+  .grouphead.star{color:var(--star)}
+
+  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+  .cell{position:relative;display:flex}
+  .cell.wide{grid-column:1/-1}
 
   .card{
-    background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);
-    box-shadow:var(--shadow);padding:12px 12px 12px 14px;margin-bottom:9px;
-    display:flex;gap:10px;align-items:center;
+    flex:1;min-width:0;
+    background:var(--bg2);border:1px solid var(--line);border-radius:13px;
+    box-shadow:var(--shadow);padding:7px 9px 8px 10px;
+    display:flex;flex-direction:column;
   }
-  .txt{flex:1;min-width:0}
-  .en{font-size:14px;color:var(--ink2);margin-bottom:2px}
-  .it{font-size:19.5px;font-weight:700;letter-spacing:-.01em;line-height:1.25}
-  .ph{font-size:12.5px;color:var(--ink3);margin-top:3px;letter-spacing:.02em}
-  .note{font-size:12px;color:var(--ink3);margin-top:4px;font-style:italic}
-  mark{background:rgba(15,122,77,.18);color:inherit;border-radius:3px;padding:0 1px}
-  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) mark{background:rgba(57,201,138,.22)}}
-  :root[data-theme="dark"] mark{background:rgba(57,201,138,.22)}
+  .card:active{transform:scale(.98)}
+  .en{font-size:11.5px;line-height:1.3;color:var(--ink2);padding-right:22px}
+  .line{display:flex;align-items:flex-end;gap:7px;margin-top:2px}
+  .it{
+    flex:1;min-width:0;
+    font-size:16px;font-weight:700;line-height:1.24;letter-spacing:-.01em;
+    overflow-wrap:break-word;hyphens:auto;
+  }
+  .note{font-size:10.5px;line-height:1.35;color:var(--ink3);font-style:italic;margin-top:3px}
+  .spk{
+    flex:none;
+    width:26px;height:26px;border-radius:8px;display:grid;place-items:center;
+    background:var(--accent);color:#fff;
+  }
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .spk{color:#08120d}}
+  :root[data-theme="dark"] .spk{color:#08120d}
+  .card.speaking .spk{animation:pulse .9s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
 
-  .acts{display:flex;flex-direction:column;gap:7px;align-items:center;flex:none;width:56px}
-  .play{
-    width:52px;height:52px;border-radius:15px;display:grid;place-items:center;
-    background:var(--accent);color:#fff;box-shadow:0 3px 10px rgba(15,122,77,.28);
+  .fav{
+    position:absolute;top:3px;right:3px;z-index:2;
+    width:26px;height:26px;border-radius:8px;display:grid;place-items:center;
+    color:var(--ink3);font-size:15px;line-height:1;
   }
-  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .play{color:#08120d;box-shadow:0 3px 10px rgba(0,0,0,.35)}}
-  :root[data-theme="dark"] .play{color:#08120d;box-shadow:0 3px 10px rgba(0,0,0,.35)}
-  .play:active{transform:scale(.93)}
-  .play.speaking{animation:pulse 1s ease-in-out infinite}
-  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.55}}
-  .mini{display:flex;gap:5px;align-items:center}
-  .sm{
-    height:24px;border-radius:8px;display:grid;place-items:center;
-    color:var(--ink3);font-weight:700;
-  }
-  .sm.slow{width:29px;border:1px solid var(--line2);font-size:10.5px;letter-spacing:-.01em}
-  .sm.fav{width:22px;font-size:15px;line-height:1}
-  .sm.fav[aria-pressed="true"]{color:#e8a33d}
-  .sm:active{transform:scale(.9)}
+  .fav[aria-pressed="true"]{color:var(--star)}
+  .fav:active{transform:scale(.9)}
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
-  .empty{text-align:center;color:var(--ink3);padding:56px 20px;font-size:15px}
-  footer{padding:26px 16px 10px;text-align:center;color:var(--ink3);font-size:12px;line-height:1.6}
+  footer{padding:20px 16px 6px;text-align:center;color:var(--ink3);font-size:11.5px;line-height:1.6}
   footer b{color:var(--ink2)}
 
-  /* ---------- sheet ---------- */
+  /* ---------- settings sheet ---------- */
   .scrim{position:fixed;inset:0;background:rgba(8,10,14,.5);z-index:90;opacity:0;pointer-events:none;transition:opacity .18s}
   .scrim.show{opacity:1;pointer-events:auto}
   .sheet{
     position:fixed;left:0;right:0;bottom:0;z-index:91;background:var(--bg2);
     border-radius:20px 20px 0 0;border-top:1px solid var(--line);
     padding:8px 18px calc(24px + var(--safe-b));max-height:88vh;overflow:auto;
+    overscroll-behavior:contain;
     transform:translateY(102%);transition:transform .22s cubic-bezier(.2,.8,.2,1);
   }
   .sheet.show{transform:none}
-  .grab{width:38px;height:4px;border-radius:99px;background:var(--line2);margin:6px auto 14px}
-  .sheet h2{margin:0 0 4px;font-size:18px}
-  .sheet h3{margin:20px 0 6px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3)}
+  .grab{width:38px;height:4px;border-radius:99px;background:var(--line2);margin:6px auto 12px}
+  .sheet h2{margin:0;font-size:18px}
+  .sheet h3{margin:20px 0 6px;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3)}
   .sheet p,.sheet li{font-size:14px;color:var(--ink2);margin:6px 0}
   .sheet ol{padding-left:20px}
   .row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
@@ -181,16 +176,13 @@
   .seg button[aria-pressed="true"]{background:var(--accent);color:#fff}
   @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .seg button[aria-pressed="true"]{color:#08120d}}
   :root[data-theme="dark"] .seg button[aria-pressed="true"]{color:#08120d}
-  .rangewrap{display:flex;align-items:center;gap:10px}
   input[type=range]{width:130px;accent-color:var(--accent)}
-  .pill{display:inline-block;padding:3px 9px;border-radius:99px;font-size:11.5px;font-weight:700;background:var(--chip);border:1px solid var(--line);color:var(--ink2)}
-  .pill.ok{background:rgba(15,122,77,.12);border-color:transparent;color:var(--grn)}
-  .pill.warn{background:rgba(198,43,50,.12);border-color:transparent;color:var(--red)}
+  .btn{border:1px solid var(--line);background:var(--chip);border-radius:10px;padding:7px 13px;font-size:13.5px;font-weight:600;color:var(--chipink);flex:none}
 </style>
 
 </head>
 <body>
-<header>
+<header id="head">
   <div class="bar">
     <div class="brand">
       <span class="flag"><i></i><i></i><i></i></span>
@@ -198,27 +190,18 @@
     </div>
     <span class="spacer"></span>
     <button class="iconbtn" id="installBtn" style="display:none" aria-label="Install app">
-      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M5 21h14"/></svg>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M5 21h14"/></svg>
     </button>
     <button class="iconbtn" id="settingsBtn" aria-label="Settings">
-      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 1.55V21a2 2 0 1 1-4 0v-.09A1.7 1.7 0 0 0 9 19.4a1.7 1.7 0 0 0-1.87.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.55-1H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.33-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-1.55V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1 1.55 1.7 1.7 0 0 0 1.87-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9v0a1.7 1.7 0 0 0 1.55 1H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.55 1Z"/></svg>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 1.55V21a2 2 0 1 1-4 0v-.09A1.7 1.7 0 0 0 9 19.4a1.7 1.7 0 0 0-1.87.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.55-1H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.33-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-1.55V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1 1.55 1.7 1.7 0 0 0 1.87-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9v0a1.7 1.7 0 0 0 1.55 1H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.55 1Z"/></svg>
     </button>
   </div>
-
-  <div class="searchwrap">
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></svg>
-    <input id="q" type="search" inputmode="search" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="Search English or Italian…" aria-label="Search phrases">
-    <button id="clearq" aria-label="Clear search">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
-    </button>
-  </div>
-
-  <div class="cats" id="cats" role="group" aria-label="Categories"></div>
+  <nav class="cats" id="cats" aria-label="Jump to section"></nav>
 </header>
 
 <div class="banner" id="voiceBanner" role="status">
   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" style="flex:none;margin-top:1px"><path d="M12 9v4m0 4h.01"/><circle cx="12" cy="12" r="9"/></svg>
-  <div><b>No Italian voice found on this device.</b> Playback will use whatever voice is available and may sound wrong. <button class="link" id="bannerHelp">How to fix</button></div>
+  <div><b>No Italian voice on this device.</b> Playback may sound wrong. <button class="link" id="bannerHelp">How to fix</button></div>
   <button class="x" id="bannerClose" aria-label="Dismiss">
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
   </button>
@@ -227,8 +210,8 @@
 <main id="list"></main>
 
 <footer>
-  <b>130 phrases · works offline</b><br>
-  Tap the speaker to hear it, <b>½×</b> for the slow version,<br><span aria-hidden="true">☆</span> to keep a phrase in <b>Saved</b>.
+  <b><span id="count">—</span> phrases · works offline</b><br>
+  Tap a card to hear it, <span aria-hidden="true">☆</span> to pin it to <b>Saved</b>.
 </footer>
 
 <div class="scrim" id="scrim"></div>
@@ -236,11 +219,11 @@
   <div class="grab"></div>
   <div style="display:flex;align-items:center;gap:12px">
     <h2 style="flex:1">Settings</h2>
-    <button class="cat" id="closeSheet" style="border-radius:10px">Done</button>
+    <button class="btn" id="closeSheet">Done</button>
   </div>
 
   <div class="row">
-    <div class="lbl"><b>Speaking about yourself</b><span>Changes phrases like "Sono vegetarian<i>o</i> / <i>a</i>"</span></div>
+    <div class="lbl"><b>Speaking about yourself</b><span>Switches "Sono vegetarian<i>o</i> / <i>a</i>"</span></div>
     <div class="seg" id="genderSeg">
       <button data-g="m" aria-pressed="true">Male</button>
       <button data-g="f" aria-pressed="false">Female</button>
@@ -248,12 +231,12 @@
   </div>
 
   <div class="row">
-    <div class="lbl"><b>Speaking speed</b><span id="rateLabel">Normal (0.90×)</span></div>
-    <div class="rangewrap"><input id="rate" type="range" min="0.5" max="1.2" step="0.05" value="0.9" aria-label="Speaking speed"></div>
+    <div class="lbl"><b>Speaking speed</b><span id="rateLabel">Slow (0.70×)</span></div>
+    <input id="rate" type="range" min="0.5" max="1.2" step="0.05" value="0.7" aria-label="Speaking speed">
   </div>
 
   <div class="row">
-    <div class="lbl"><b>Appearance</b><span>Dark is easier on the eyes in a restaurant</span></div>
+    <div class="lbl"><b>Appearance</b><span>Dark is easier on the eyes at dinner</span></div>
     <div class="seg" id="themeSeg">
       <button data-t="auto" aria-pressed="true">Auto</button>
       <button data-t="light" aria-pressed="false">Light</button>
@@ -263,173 +246,85 @@
 
   <div class="row">
     <div class="lbl"><b>Voice</b><span id="voiceName">Checking…</span></div>
-    <button class="cat" id="testVoice" style="border-radius:10px">Test</button>
+    <button class="btn" id="testVoice">Test</button>
   </div>
 
   <h3>Offline speech on Android</h3>
-  <p>The app itself works with no signal once it has loaded. Speech uses Android's built-in text&#8209;to&#8209;speech, which also works offline <i>if</i> the Italian voice is downloaded. Do this before you fly:</p>
+  <p>The app itself works with no signal once it has loaded. Speech uses Android's built-in
+  text&#8209;to&#8209;speech, which also works offline <i>if</i> the Italian voice is downloaded.
+  Do this before you fly:</p>
   <ol>
     <li>Android <b>Settings → System → Languages &amp; input → Text-to-speech output</b></li>
     <li>Open the gear next to <b>Speech Services by Google</b> → <b>Install voice data</b></li>
     <li>Choose <b>Italiano (Italia)</b> and download it</li>
     <li>Come back here and press <b>Test</b> above</li>
   </ol>
+  <h3>This is the preview copy</h3>
+  <p>Everything here works, but true offline use needs the copy in your
+  <b>italian-phrases</b> folder, hosted over https — the README in that folder walks
+  through it. This page needs a connection to load, though speech still runs on the phone.</p>
   <h3>Install to your home screen</h3>
-  <p>In Chrome, open the ⋮ menu and choose <b>Add to Home screen</b> (or <b>Install app</b>). It then opens full-screen like a normal app, with no address bar.</p>
-  <p style="margin-top:18px;color:var(--ink3);font-size:12.5px">Pronunciation guides are approximate — stress falls on the CAPITALISED syllable.</p>
+  <p>On your phone, open <b>jeffwhoughton.github.io/italianphrases</b> in Chrome, then use
+  the ⋮ menu → <b>Add to Home screen</b> (or <b>Install app</b>). It opens full-screen like a
+  normal app, and keeps a copy of itself on the phone so it loads with no signal.</p>
 </section>
 
 <script>
 const DATA=[
 {id:"basics",en:"Essentials",it:"Le basi",items:[
- {en:"Hello / Hi (informal)",it:"Ciao",ph:"chow",note:"Friendly. With strangers or staff, use Buongiorno."},
- {en:"Good morning / Good day",it:"Buongiorno",ph:"bwon-JOR-noh",note:"The default polite greeting until late afternoon."},
- {en:"Good evening",it:"Buonasera",ph:"bwoh-nah-SEH-rah",note:"From roughly 5pm onward."},
- {en:"Good night",it:"Buonanotte",ph:"bwoh-nah-NOT-teh",note:"Only when leaving for bed."},
- {en:"Goodbye",it:"Arrivederci",ph:"ah-ree-veh-DEHR-chee"},
- {en:"See you later",it:"A dopo",ph:"ah DOH-poh"},
- {en:"See you tomorrow",it:"A domani",ph:"ah doh-MAH-nee"},
- {en:"Yes",it:"Sì",ph:"see"},
- {en:"No",it:"No",ph:"noh"},
- {en:"Please",it:"Per favore",ph:"pehr fah-VOH-reh"},
- {en:"Thank you",it:"Grazie",ph:"GRAHT-tsyeh",note:"Two syllables: GRAT-see-eh, not 'gratzi'."},
- {en:"Thank you very much",it:"Grazie mille",ph:"GRAHT-tsyeh MEEL-leh"},
- {en:"You're welcome / Go ahead",it:"Prego",ph:"PREH-goh",note:"Also means 'after you' and 'how can I help?'."},
- {en:"Excuse me (getting attention)",it:"Mi scusi",ph:"mee SKOO-zee"},
- {en:"Excuse me (squeezing past)",it:"Permesso",ph:"pehr-MES-soh"},
- {en:"I'm sorry",it:"Mi dispiace",ph:"mee dees-PYAH-cheh"},
- {en:"OK / That's fine",it:"Va bene",ph:"vah BEH-neh"},
- {en:"Of course",it:"Certo",ph:"CHEHR-toh"},
- {en:"Sorry, no thank you",it:"No, grazie",ph:"noh GRAHT-tsyeh"}
+ {en:"Hello / Hi",it:"Ciao",note:"With staff, say Buongiorno"},
+ {en:"Goodbye",it:"Arrivederci"},
+ {en:"Good morning / Good day",it:"Buongiorno",note:"Until late afternoon"},
+ {en:"Good evening",it:"Buonasera",note:"From about 5pm"},
+ {en:"Yes",it:"Sì"},
+ {en:"No",it:"No"},
+ {en:"Please",it:"Per favore"},
+ {en:"Thank you",it:"Grazie"},
+ {en:"No, thank you",it:"No, grazie"},
+ {en:"You're welcome",it:"Prego",note:"Also 'go ahead' / 'after you'"},
+ {en:"Excuse me",it:"Mi scusi"},
+ {en:"OK / That's fine",it:"Va bene"},
+ {en:"How much is it?",it:"Quanto costa?"},
+ {en:"Where is it?",it:"Dov'è?",note:"Then point at what you mean"},
+ {en:"One to ten",it:"Uno, due, tre, quattro, cinque, sei, sette, otto, nove, dieci",wide:true}
 ]},
 {id:"me",en:"About me",it:"Chi sono",items:[
- {en:"I am Canadian",it:"Sono canadese",ph:"SOH-noh kah-nah-DEH-zeh",note:"Same word for men and women."},
- {en:"I'm from Canada",it:"Vengo dal Canada",ph:"VEN-goh dahl KAH-nah-dah"},
- {en:"My name is Jeff",it:"Mi chiamo Jeff",ph:"mee KYAH-moh Jeff"},
- {en:"Nice to meet you",it:"Piacere",ph:"pyah-CHEH-reh"},
- {en:"I don't speak Italian",it:"Non parlo italiano",ph:"non PAR-loh ee-tah-LYAH-noh"},
- {en:"I speak a little Italian",it:"Parlo un po' d'italiano",ph:"PAR-loh oon poh dee-tah-LYAH-noh"},
- {en:"Do you speak English?",it:"Parla inglese?",ph:"PAR-lah een-GLEH-zeh"},
- {en:"I don't understand",it:"Non capisco",ph:"non kah-PEE-skoh"},
- {en:"Could you repeat that?",it:"Può ripetere, per favore?",ph:"pwoh ree-PEH-teh-reh"},
- {en:"More slowly, please",it:"Più lentamente, per favore",ph:"pyoo len-tah-MEN-teh"},
- {en:"How do you say this in Italian?",it:"Come si dice questo in italiano?",ph:"KOH-meh see DEE-cheh"},
- {en:"I'm here on holiday",it:"Sono qui in vacanza",ph:"SOH-noh kwee een vah-KAHN-tsah"},
- {en:"How are you?",it:"Come sta?",ph:"KOH-meh stah",note:"Polite form. With friends: Come stai?"},
- {en:"I'm well, thanks",it:"Sto bene, grazie",ph:"stoh BEH-neh GRAHT-tsyeh"},
- {en:"Can you write it down?",it:"Può scriverlo?",ph:"pwoh SKREE-vehr-loh"}
+ {en:"I am Canadian",it:"Sono canadese"},
+ {en:"My name is Jeff",it:"Mi chiamo Jeff"},
+ {en:"Nice to meet you",it:"Piacere"},
+ {en:"I don't speak Italian",it:"Non parlo italiano"},
+ {en:"Do you speak English?",it:"Parla inglese?"},
+ {en:"I don't understand",it:"Non capisco"}
 ]},
-{id:"diet",en:"Vegetarian & diet",it:"Diete e allergie",items:[
- {en:"I am vegetarian",it:"Sono vegetariano",ph:"SOH-noh veh-jeh-tah-RYAH-noh",f:{it:"Sono vegetariana",ph:"SOH-noh veh-jeh-tah-RYAH-nah"}},
- {en:"I am vegan",it:"Sono vegano",ph:"SOH-noh veh-GAH-noh",f:{it:"Sono vegana",ph:"SOH-noh veh-GAH-nah"}},
- {en:"No meat",it:"Senza carne",ph:"SEN-tsah KAR-neh"},
- {en:"I don't eat meat",it:"Non mangio carne",ph:"non MAHN-joh KAR-neh"},
- {en:"I don't eat fish",it:"Non mangio pesce",ph:"non MAHN-joh PEH-sheh",note:"Italians often don't count fish or ham as 'meat' — say this too."},
- {en:"Does this have meat in it?",it:"Contiene carne?",ph:"kon-TYEH-neh KAR-neh"},
- {en:"Is there meat stock in it?",it:"C'è brodo di carne?",ph:"cheh BROH-doh dee KAR-neh"},
- {en:"Without ham",it:"Senza prosciutto",ph:"SEN-tsah proh-SHOOT-toh"},
- {en:"Without cheese",it:"Senza formaggio",ph:"SEN-tsah for-MAHJ-joh"},
- {en:"Without eggs",it:"Senza uova",ph:"SEN-tsah WOH-vah"},
- {en:"Which dishes are vegetarian?",it:"Quali piatti sono vegetariani?",ph:"KWAH-lee PYAHT-tee SOH-noh veh-jeh-tah-RYAH-nee"},
- {en:"What do you recommend without meat?",it:"Cosa mi consiglia senza carne?",ph:"KOH-zah mee kon-SEE-lyah SEN-tsah KAR-neh"},
- {en:"A vegetarian dish, please",it:"Un piatto vegetariano, per favore",ph:"oon PYAHT-toh veh-jeh-tah-RYAH-noh"},
- {en:"I'm allergic to nuts",it:"Sono allergico alle noci",ph:"SOH-noh al-LEHR-jee-koh AL-leh NOH-chee",f:{it:"Sono allergica alle noci",ph:"SOH-noh al-LEHR-jee-kah AL-leh NOH-chee"}},
- {en:"Is it gluten free?",it:"È senza glutine?",ph:"eh SEN-tsah GLOO-tee-neh"}
+{id:"diet",en:"Vegetarian",it:"Sono vegetariano",items:[
+ {en:"I am vegetarian",it:"Sono vegetariano",f:"Sono vegetariana"},
+ {en:"No meat",it:"Senza carne"},
+ {en:"I don't eat meat",it:"Non mangio carne",note:"Prosciutto often isn't counted as 'meat'"},
+ {en:"Does this have meat in it?",it:"Contiene carne?"},
+ {en:"Yes, I do eat fish",it:"Sì, mangio il pesce",note:"Follows on from 'Sono vegetariano'"},
+ {en:"He doesn't eat fish",it:"Lui non mangia il pesce"}
 ]},
-{id:"food",en:"Eating & drinking",it:"Al ristorante",items:[
- {en:"A table for two, please",it:"Un tavolo per due, per favore",ph:"oon TAH-voh-loh pehr DOO-eh"},
- {en:"Do you have a menu in English?",it:"Avete un menù in inglese?",ph:"ah-VEH-teh oon meh-NOO een een-GLEH-zeh"},
- {en:"I'd like to order",it:"Vorrei ordinare",ph:"vor-RAY or-dee-NAH-reh"},
- {en:"I'll have wine",it:"Prendo del vino",ph:"PREN-doh del VEE-noh"},
- {en:"A glass of red wine",it:"Un bicchiere di vino rosso",ph:"oon beek-KYEH-reh dee VEE-noh ROS-soh"},
- {en:"A glass of white wine",it:"Un bicchiere di vino bianco",ph:"oon beek-KYEH-reh dee VEE-noh BYAHN-koh"},
- {en:"House wine, please",it:"Vino della casa, per favore",ph:"VEE-noh DEL-lah KAH-zah"},
- {en:"I'll have a beer",it:"Prendo una birra",ph:"PREN-doh OO-nah BEER-rah"},
- {en:"A small beer / a large beer",it:"Una birra piccola / una birra grande",ph:"OO-nah BEER-rah PEEK-koh-lah / GRAHN-deh"},
- {en:"Still water",it:"Acqua naturale",ph:"AHK-kwah nah-too-RAH-leh"},
- {en:"Sparkling water",it:"Acqua frizzante",ph:"AHK-kwah freed-DZAHN-teh"},
- {en:"A coffee, please",it:"Un caffè, per favore",ph:"oon kahf-FEH",note:"'Un caffè' means an espresso."},
- {en:"What's the dish of the day?",it:"Qual è il piatto del giorno?",ph:"kwahl eh eel PYAHT-toh del JOR-noh"},
- {en:"This one, for me",it:"Questo, per me",ph:"KWEH-stoh pehr meh",note:"Point at the menu — always works."},
- {en:"Nothing else, thanks",it:"Nient'altro, grazie",ph:"nyen-TAHL-troh GRAHT-tsyeh"},
- {en:"It was delicious",it:"Era buonissimo",ph:"EH-rah bwoh-NEES-see-moh"},
- {en:"The bill, please",it:"Il conto, per favore",ph:"eel KON-toh pehr fah-VOH-reh"},
- {en:"Can I pay by card?",it:"Posso pagare con la carta?",ph:"POS-soh pah-GAH-reh kon lah KAR-tah"},
- {en:"Is service included?",it:"Il servizio è incluso?",ph:"eel sehr-VEE-tsyoh eh een-KLOO-zoh"},
- {en:"Cheers!",it:"Salute!",ph:"sah-LOO-teh",note:"Clinking glasses: Cin cin! (chin chin)"},
- {en:"Enjoy your meal",it:"Buon appetito",ph:"bwon ahp-peh-TEE-toh"}
+{id:"food",en:"Food & drink",it:"Al ristorante",items:[
+ {en:"A table for two, please",it:"Un tavolo per due, per favore"},
+ {en:"Cheers!",it:"Salute!"},
+ {en:"I'll have wine",it:"Prendo del vino"},
+ {en:"I'll have a beer",it:"Prendo una birra"},
+ {en:"A glass of red wine",it:"Un bicchiere di vino rosso"},
+ {en:"A glass of white wine",it:"Un bicchiere di vino bianco"},
+ {en:"Still water",it:"Acqua naturale"},
+ {en:"Sparkling water",it:"Acqua frizzante"},
+ {en:"A coffee, please",it:"Un caffè, per favore",note:"This gets you an espresso"},
+ {en:"A latte, please",it:"Un caffellatte, per favore",note:"Ask for 'un latte' and you get milk"},
+ {en:"The bill, please",it:"Il conto, per favore"},
+ {en:"Can I pay by card?",it:"Posso pagare con la carta?"}
 ]},
 {id:"go",en:"Getting around",it:"In giro",items:[
- {en:"Where is the bathroom?",it:"Dov'è il bagno?",ph:"doh-VEH eel BAH-nyoh"},
- {en:"Where is the train station?",it:"Dov'è la stazione?",ph:"doh-VEH lah stah-TSYOH-neh"},
- {en:"How do I get to the centre?",it:"Come arrivo in centro?",ph:"KOH-meh ar-REE-voh een CHEN-troh"},
- {en:"Is it far?",it:"È lontano?",ph:"eh lon-TAH-noh"},
- {en:"On the right / on the left",it:"A destra / a sinistra",ph:"ah DEH-strah / ah see-NEE-strah"},
- {en:"Straight ahead",it:"Sempre dritto",ph:"SEM-preh DREET-toh"},
- {en:"One ticket to Florence",it:"Un biglietto per Firenze",ph:"oon bee-LYET-toh pehr fee-REN-tseh"},
- {en:"Two tickets, please",it:"Due biglietti, per favore",ph:"DOO-eh bee-LYET-tee"},
- {en:"Which platform?",it:"Quale binario?",ph:"KWAH-leh bee-NAH-ryoh"},
- {en:"What time does the train leave?",it:"A che ora parte il treno?",ph:"ah keh OH-rah PAR-teh eel TREH-noh"},
- {en:"Does this bus go to the centre?",it:"Questo autobus va in centro?",ph:"KWEH-stoh OW-toh-boos vah een CHEN-troh"},
- {en:"Stop here, please",it:"Si fermi qui, per favore",ph:"see FEHR-mee kwee"},
- {en:"I'm lost",it:"Mi sono perso",ph:"mee SOH-noh PEHR-soh",f:{it:"Mi sono persa",ph:"mee SOH-noh PEHR-sah"}},
- {en:"Can you show me on the map?",it:"Può mostrarmi sulla mappa?",ph:"pwoh moh-STRAR-mee SOOL-lah MAHP-pah"},
- {en:"Where can I find a taxi?",it:"Dove posso trovare un taxi?",ph:"DOH-veh POS-soh troh-VAH-reh oon TAHK-see"}
-]},
-{id:"shop",en:"Shopping & money",it:"Acquisti",items:[
- {en:"How much is it?",it:"Quanto costa?",ph:"KWAHN-toh KOH-stah"},
- {en:"How much is it all together?",it:"Quant'è in tutto?",ph:"kwahn-TEH een TOOT-toh"},
- {en:"That's too expensive",it:"È troppo caro",ph:"eh TROP-poh KAH-roh"},
- {en:"I'm just looking",it:"Sto solo guardando",ph:"stoh SOH-loh gwar-DAHN-doh"},
- {en:"I'll take this one",it:"Prendo questo",ph:"PREN-doh KWEH-stoh"},
- {en:"Do you take cards?",it:"Accettate carte?",ph:"ah-chet-TAH-teh KAR-teh"},
- {en:"Can I have a receipt?",it:"Posso avere lo scontrino?",ph:"POS-soh ah-VEH-reh loh skon-TREE-noh"},
- {en:"Do you have a bigger size?",it:"Avete una taglia più grande?",ph:"ah-VEH-teh OO-nah TAH-lyah pyoo GRAHN-deh"},
- {en:"Where is a cash machine?",it:"Dov'è un bancomat?",ph:"doh-VEH oon BAHN-koh-maht"}
-]},
-{id:"hotel",en:"Hotel",it:"In albergo",items:[
- {en:"I have a reservation",it:"Ho una prenotazione",ph:"oh OO-nah preh-noh-tah-TSYOH-neh"},
- {en:"Do you have a room available?",it:"Avete una camera libera?",ph:"ah-VEH-teh OO-nah KAH-meh-rah LEE-beh-rah"},
- {en:"For two nights",it:"Per due notti",ph:"pehr DOO-eh NOT-tee"},
- {en:"What time is check-out?",it:"A che ora è il check-out?",ph:"ah keh OH-rah eh eel check-out"},
- {en:"What's the wifi password?",it:"Qual è la password del wifi?",ph:"kwahl eh lah PASS-word del WEE-fee"},
- {en:"Can I leave my bags here?",it:"Posso lasciare i bagagli qui?",ph:"POS-soh lah-SHAH-reh ee bah-GAH-lyee kwee"},
- {en:"The air conditioning isn't working",it:"L'aria condizionata non funziona",ph:"LAH-ryah kon-dee-tsyoh-NAH-tah non foon-TSYOH-nah"},
- {en:"Is breakfast included?",it:"La colazione è inclusa?",ph:"lah koh-lah-TSYOH-neh eh een-KLOO-zah"}
-]},
-{id:"help",en:"Help & emergencies",it:"Emergenze",items:[
- {en:"Help!",it:"Aiuto!",ph:"ah-YOO-toh"},
- {en:"I need help",it:"Ho bisogno di aiuto",ph:"oh bee-ZOH-nyoh dee ah-YOO-toh"},
- {en:"Call a doctor",it:"Chiami un medico",ph:"KYAH-mee oon MEH-dee-koh"},
- {en:"Call the police",it:"Chiami la polizia",ph:"KYAH-mee lah poh-lee-TSEE-ah",note:"Emergency number across Italy: 112."},
- {en:"I don't feel well",it:"Non mi sento bene",ph:"non mee SEN-toh BEH-neh"},
- {en:"Where is the pharmacy?",it:"Dov'è la farmacia?",ph:"doh-VEH lah far-mah-CHEE-ah"},
- {en:"I've lost my passport",it:"Ho perso il passaporto",ph:"oh PEHR-soh eel pahs-sah-POR-toh"},
- {en:"My wallet has been stolen",it:"Mi hanno rubato il portafoglio",ph:"mee AHN-noh roo-BAH-toh eel por-tah-FOH-lyoh"},
- {en:"I'm allergic to penicillin",it:"Sono allergico alla penicillina",ph:"SOH-noh al-LEHR-jee-koh AL-lah peh-nee-cheel-LEE-nah",f:{it:"Sono allergica alla penicillina",ph:"SOH-noh al-LEHR-jee-kah AL-lah peh-nee-cheel-LEE-nah"}},
- {en:"Please leave me alone",it:"Mi lasci in pace",ph:"mee LAH-shee een PAH-cheh"}
-]},
-{id:"num",en:"Numbers & time",it:"Numeri e orari",items:[
- {en:"One, two, three",it:"Uno, due, tre",ph:"OO-noh, DOO-eh, treh"},
- {en:"Four, five, six",it:"Quattro, cinque, sei",ph:"KWAHT-troh, CHEEN-kweh, say"},
- {en:"Seven, eight, nine, ten",it:"Sette, otto, nove, dieci",ph:"SET-teh, OT-toh, NOH-veh, DYEH-chee"},
- {en:"What time is it?",it:"Che ore sono?",ph:"keh OH-reh SOH-noh"},
- {en:"What time do you open?",it:"A che ora aprite?",ph:"ah keh OH-rah ah-PREE-teh"},
- {en:"What time do you close?",it:"A che ora chiudete?",ph:"ah keh OH-rah kyoo-DEH-teh"},
- {en:"Today / tomorrow / yesterday",it:"Oggi / domani / ieri",ph:"OJ-jee / doh-MAH-nee / YEH-ree"},
- {en:"Now / later",it:"Adesso / più tardi",ph:"ah-DES-soh / pyoo TAR-dee"}
-]},
-{id:"useful",en:"Handy extras",it:"Frasi utili",items:[
- {en:"I would like…",it:"Vorrei…",ph:"vor-RAY",note:"The politest way to start almost any request."},
- {en:"Can you help me?",it:"Può aiutarmi?",ph:"pwoh ah-yoo-TAR-mee"},
- {en:"Where can I find…?",it:"Dove posso trovare…?",ph:"DOH-veh POS-soh troh-VAH-reh"},
- {en:"Is it possible?",it:"È possibile?",ph:"eh pos-SEE-bee-leh"},
- {en:"Just a moment",it:"Un momento",ph:"oon moh-MEN-toh"},
- {en:"No problem",it:"Nessun problema",ph:"nes-SOON proh-BLEH-mah"},
- {en:"I like it a lot",it:"Mi piace molto",ph:"mee PYAH-cheh MOL-toh"},
- {en:"How beautiful!",it:"Che bello!",ph:"keh BEL-loh"},
- {en:"Can I take a photo?",it:"Posso fare una foto?",ph:"POS-soh FAH-reh OO-nah FOH-toh"},
- {en:"I'm sorry, I have to go",it:"Mi dispiace, devo andare",ph:"mee dees-PYAH-cheh DEH-voh ahn-DAH-reh"}
+ {en:"Where is the bathroom?",it:"Dov'è il bagno?"},
+ {en:"Rome",it:"Roma"},
+ {en:"Florence",it:"Firenze"},
+ {en:"Lake Garda",it:"Lago di Garda"},
+ {en:"The train",it:"Il treno"},
+ {en:"The airport",it:"L'aeroporto"}
 ]}
 ];
 
@@ -439,20 +334,17 @@ const store={
   set(k,v){try{localStorage.setItem('parla.'+k,JSON.stringify(v))}catch(e){}}
 };
 
-/* ---------------- state ---------------- */
 const state={
-  q:'',
-  cat:store.get('cat','all'),
   gender:store.get('gender','m'),
-  rate:store.get('rate',0.9),
+  rate:store.get('rate',0.7),
   theme:store.get('theme','auto'),
   favs:new Set(store.get('favs',[]))
 };
 const $=s=>document.querySelector(s);
-const key=p=>p.en;
+const say=p=>(state.gender==='f'&&p.f)?p.f:p.it;
 
 /* ---------------- speech ---------------- */
-let itVoice=null, voicesReady=false;
+let itVoice=null;
 function pickVoice(force){
   if(!('speechSynthesis' in window)){
     const n=$('#voiceName'); if(n)n.textContent='Speech not supported in this browser';
@@ -460,154 +352,160 @@ function pickVoice(force){
   }
   const vs=speechSynthesis.getVoices()||[];
   if(!vs.length && !force)return;
-  voicesReady=vs.length>0;
   const it=vs.filter(v=>(v.lang||'').toLowerCase().replace('_','-').startsWith('it'));
-  itVoice = it.find(v=>/it[-_]IT/i.test(v.lang)&&v.localService)
-         || it.find(v=>v.localService)
-         || it[0] || null;
-  const nameEl=$('#voiceName');
-  if(nameEl){
-    nameEl.textContent = itVoice
-      ? itVoice.name + (itVoice.localService ? ' · offline ready' : ' · needs internet')
-      : 'No Italian voice installed';
-  }
+  itVoice = it.find(v=>/it[-_]IT/i.test(v.lang)&&v.localService) || it.find(v=>v.localService) || it[0] || null;
+  const n=$('#voiceName');
+  if(n)n.textContent = itVoice ? itVoice.name+(itVoice.localService?' · offline ready':' · needs internet')
+                               : 'No Italian voice installed';
   $('#voiceBanner').classList.toggle('show', !itVoice && !store.get('bannerDismissed',false));
 }
 if('speechSynthesis' in window){
   pickVoice();
   speechSynthesis.addEventListener('voiceschanged',pickVoice);
-  setTimeout(pickVoice,300); setTimeout(pickVoice,1200);
-  setTimeout(()=>pickVoice(true),2200);
+  setTimeout(pickVoice,300); setTimeout(pickVoice,1200); setTimeout(()=>pickVoice(true),2200);
 }
 
-let speakingBtn=null;
-function speak(text,slow,btn){
-  if(!('speechSynthesis' in window)){alert('This browser cannot speak text. Try Chrome on Android.');return}
+let speakingCard=null;
+function speak(text,card){
+  if(!('speechSynthesis' in window))return;
   try{speechSynthesis.cancel()}catch(e){}
-  if(speakingBtn){speakingBtn.classList.remove('speaking');speakingBtn=null}
-  const u=new SpeechSynthesisUtterance(text.replace(/…/g,'').replace(/\s*\/\s*/g,', '));
+  if(speakingCard){speakingCard.classList.remove('speaking');speakingCard=null}
+  const u=new SpeechSynthesisUtterance(text.replace(/\s*\/\s*/g,', '));
   u.lang='it-IT';
   if(itVoice)u.voice=itVoice;
-  u.rate = slow ? Math.max(0.4, state.rate*0.6) : state.rate;
-  u.pitch=1;
-  if(btn){
-    btn.classList.add('speaking'); speakingBtn=btn;
-    const done=()=>{btn.classList.remove('speaking'); if(speakingBtn===btn)speakingBtn=null};
+  u.rate=state.rate; u.pitch=1;
+  if(card){
+    card.classList.add('speaking'); speakingCard=card;
+    const done=()=>{card.classList.remove('speaking'); if(speakingCard===card)speakingCard=null};
     u.onend=done; u.onerror=done;
   }
   try{speechSynthesis.speak(u)}catch(e){}
   if(navigator.vibrate){try{navigator.vibrate(8)}catch(e){}}
 }
 
-/* ---------------- helpers ---------------- */
-function variant(p){
-  return (state.gender==='f' && p.f) ? {it:p.f.it, ph:p.f.ph} : {it:p.it, ph:p.ph};
-}
-const fold=s=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/['’]/g,"'");
-function esc(s){return s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
-function hl(s,q){
-  if(!q)return esc(s);
-  const f=fold(s), fq=fold(q), out=[]; let i=0;
-  while(true){
-    const j=f.indexOf(fq,i); if(j<0){out.push(esc(s.slice(i)));break}
-    out.push(esc(s.slice(i,j)),'<mark>',esc(s.slice(j,j+q.length)),'</mark>');
-    i=j+q.length;
-  }
-  return out.join('');
-}
-
 /* ---------------- render ---------------- */
-function catsRender(){
-  const el=$('#cats');
-  const list=[{id:'all',en:'All'},{id:'fav',en:'★ Saved'},...DATA];
-  el.innerHTML=list.map(c=>
-    `<button class="cat" data-cat="${c.id}" aria-pressed="${state.cat===c.id}">${esc(c.en)}</button>`
-  ).join('');
-  el.querySelectorAll('.cat').forEach(b=>b.onclick=()=>{
-    state.cat=b.dataset.cat; store.set('cat',state.cat);
-    catsRender(); render();
-    window.scrollTo({top:0,behavior:'smooth'});
-  });
-  const on=el.querySelector('[aria-pressed="true"]');
-  if(on)on.scrollIntoView({inline:'center',block:'nearest'});
+function esc(s){return s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+const SPK='<span class="spk" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg></span>';
+
+function cellHTML(p){
+  const t=say(p), fav=state.favs.has(p.en);
+  return `<div class="cell${p.wide?' wide':''}">
+    <button class="card" data-say="${esc(t)}">
+      <span class="en">${esc(p.en)}</span>
+      <span class="line"><span class="it" lang="it">${esc(t)}</span>${SPK}</span>
+      ${p.note?`<span class="note">${esc(p.note)}</span>`:''}
+    </button>
+    <button class="fav" data-fav="${esc(p.en)}" aria-pressed="${fav}" aria-label="${fav?'Unpin '+esc(p.en):'Pin '+esc(p.en)+' to Saved'}">${fav?'★':'☆'}</button>
+  </div>`;
 }
 
-function cardHTML(p,q){
-  const v=variant(p);
-  const fav=state.favs.has(key(p));
-  return `<article class="card">
-    <div class="txt">
-      <div class="en">${hl(p.en,q)}</div>
-      <div class="it" lang="it">${hl(v.it,q)}</div>
-      <div class="ph">${esc(v.ph)}</div>
-      ${p.note?`<div class="note">${esc(p.note)}</div>`:''}
-    </div>
-    <div class="acts">
-      <button class="play" data-say="${esc(v.it)}" aria-label="Play: ${esc(v.it)}">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
-      </button>
-      <div class="mini">
-        <button class="sm slow" data-slow="${esc(v.it)}" aria-label="Play slowly">½&#215;</button>
-        <button class="sm fav" data-fav="${esc(key(p))}" aria-pressed="${fav}" aria-label="${fav?'Remove from saved':'Save phrase'}">${fav?'★':'☆'}</button>
-      </div>
-    </div>
-  </article>`;
+function sections(){
+  const out=[];
+  const saved=[];
+  DATA.forEach(c=>c.items.forEach(p=>{if(state.favs.has(p.en))saved.push(p)}));
+  if(saved.length)out.push({id:'saved',en:'Saved',sub:'I preferiti',star:true,items:saved});
+  DATA.forEach(c=>{
+    const items=c.items.filter(p=>!state.favs.has(p.en));
+    if(items.length)out.push({id:c.id,en:c.en,sub:c.it,items});
+  });
+  return out;
 }
 
 function render(){
-  const q=state.q.trim(), fq=fold(q);
-  const groups=[];
-  for(const c of DATA){
-    if(!q && state.cat!=='all' && state.cat!=='fav' && state.cat!==c.id) continue;
-    let items=c.items;
-    if(state.cat==='fav' && !q) items=items.filter(p=>state.favs.has(key(p)));
-    if(q) items=items.filter(p=>{
-      const v=variant(p);
-      return fold(p.en).includes(fq)||fold(v.it).includes(fq)||fold(v.ph).includes(fq);
-    });
-    if(items.length)groups.push({c,items});
-  }
-  const el=$('#list');
-  if(!groups.length){
-    el.innerHTML=`<div class="empty">${state.cat==='fav'&&!q
-      ? 'No saved phrases yet.<br>Tap ☆ on any phrase to keep it here.'
-      : 'Nothing matches “'+esc(q)+'”.'}</div>`;
-    return;
-  }
-  el.innerHTML=groups.map(g=>
-    `<div class="grouphead">${esc(g.c.en)} <span class="it">${esc(g.c.it)}</span></div>`+
-    g.items.map(p=>cardHTML(p,q)).join('')
+  const secs=sections();
+  $('#list').innerHTML=secs.map(s=>
+    `<h2 class="grouphead${s.star?' star':''}" id="sec-${s.id}">${esc(s.en)} <span class="sub">${esc(s.sub)}</span></h2>`+
+    `<div class="grid">${s.items.map(cellHTML).join('')}</div>`
   ).join('');
+  catsRender(secs);
 }
 
-/* ---------------- events (delegated) ---------------- */
-$('#list').addEventListener('click',e=>{
-  const play=e.target.closest('[data-say]');
-  if(play){speak(play.dataset.say,false,play);return}
-  const slow=e.target.closest('[data-slow]');
-  if(slow){speak(slow.dataset.slow,true,slow.closest('.acts').querySelector('.play'));return}
-  const fav=e.target.closest('[data-fav]');
-  if(fav){
-    const k=fav.dataset.fav;
-    state.favs.has(k)?state.favs.delete(k):state.favs.add(k);
-    store.set('favs',[...state.favs]);
-    render();
+function catsRender(secs){
+  const el=$('#cats');
+  const want=secs.map(s=>s.id).join(',');
+  if(el.dataset.want!==want){
+    el.dataset.want=want;
+    el.innerHTML=secs.map(s=>
+      `<button class="cat${s.star?' saved':''}" data-go="sec-${s.id}">${esc(s.en)}</button>`
+    ).join('');
+  }
+  spy();
+}
+
+/* ---------------- jump + scroll spy ---------------- */
+function headH(){return $('#head').offsetHeight}
+function setHeadVar(){document.documentElement.style.setProperty('--head',headH()+'px')}
+
+
+function spy(){
+  const line=headH()+10;
+  const heads=[...document.querySelectorAll('.grouphead')];
+  let cur=heads[0];
+  for(const h of heads){ if(h.getBoundingClientRect().top<=line)cur=h; }
+  if(window.innerHeight+window.scrollY>=document.documentElement.scrollHeight-4)cur=heads[heads.length-1];
+  document.querySelectorAll('.cat').forEach(b=>
+    b.setAttribute('aria-current',String(!!cur && b.dataset.go===cur.id)));
+}
+let ticking=false;
+addEventListener('scroll',()=>{
+  if(ticking)return; ticking=true;
+  requestAnimationFrame(()=>{spy();ticking=false});
+},{passive:true});
+addEventListener('resize',()=>{setHeadVar();spy()});
+
+const noMotion=window.matchMedia?matchMedia('(prefers-reduced-motion: reduce)'):{matches:false};
+$('#cats').addEventListener('click',e=>{
+  const b=e.target.closest('[data-go]'); if(!b)return;
+  const el=document.getElementById(b.dataset.go); if(!el)return;
+  const top=window.scrollY + el.getBoundingClientRect().top - headH() - 6;
+  try{
+    window.scrollTo({top,behavior:noMotion.matches?'auto':'smooth'});
+  }catch(err){
+    window.scrollTo(0,top);
   }
 });
 
-const qEl=$('#q');
-qEl.addEventListener('input',()=>{
-  state.q=qEl.value;
-  $('#clearq').classList.toggle('show',!!state.q);
-  render();
+/* ---------------- card events ---------------- */
+$('#list').addEventListener('click',e=>{
+  const fav=e.target.closest('[data-fav]');
+  if(fav){
+    const k=fav.dataset.fav, on=!state.favs.has(k);
+    on?state.favs.add(k):state.favs.delete(k);
+    store.set('favs',[...state.favs]);
+    renderKeepingPlace();
+    return;
+  }
+  const card=e.target.closest('[data-say]');
+  if(card)speak(card.dataset.say,card);
 });
-$('#clearq').onclick=()=>{qEl.value='';state.q='';$('#clearq').classList.remove('show');render();qEl.focus()};
 
-/* sheet */
+/* re-render without the page jumping under your thumb */
+function renderKeepingPlace(){
+  const line=headH()+10;
+  let anchor=null, offset=0;
+  for(const h of document.querySelectorAll('.grouphead')){
+    const t=h.getBoundingClientRect().top;
+    if(t<=line){anchor=h.id;offset=t}
+  }
+  render();
+  const el=anchor&&document.getElementById(anchor);
+  if(el)window.scrollTo(0, window.scrollY + el.getBoundingClientRect().top - offset);
+  else spy();
+}
+
+/* ---------------- settings ---------------- */
+let sheetY=0;
 function openSheet(o){
   $('#sheet').classList.toggle('show',o); $('#scrim').classList.toggle('show',o);
   $('#sheet').setAttribute('aria-hidden',String(!o));
-  document.body.style.overflow=o?'hidden':'';
+  if(o){
+    sheetY=window.scrollY;
+    document.body.style.cssText+=';position:fixed;left:0;right:0;width:100%;top:'+(-sheetY)+'px;';
+  }else{
+    document.body.style.position=''; document.body.style.top='';
+    document.body.style.left=''; document.body.style.right=''; document.body.style.width='';
+    window.scrollTo(0,sheetY);
+  }
 }
 $('#settingsBtn').onclick=()=>openSheet(true);
 $('#scrim').onclick=()=>openSheet(false);
@@ -620,14 +518,15 @@ $('#genderSeg').addEventListener('click',e=>{
   $('#genderSeg').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.g===state.gender)));
   render();
 });
+
 const rateEl=$('#rate');
 function rateLabel(){
   const r=state.rate;
-  const w=r<0.75?'Slow':r>1.05?'Fast':r<0.95?'Normal':'Natural';
+  const w=r<=0.6?'Very slow':r<=0.8?'Slow':r<=1.0?'Normal':'Fast';
   $('#rateLabel').textContent=w+' ('+r.toFixed(2)+'×)';
 }
 rateEl.addEventListener('input',()=>{state.rate=parseFloat(rateEl.value);store.set('rate',state.rate);rateLabel()});
-$('#testVoice').onclick=()=>speak('Buonasera! Sono canadese e sono vegetariano.',false,null);
+$('#testVoice').onclick=()=>speak('Buonasera! Sono canadese e sono vegetariano.',null);
 
 function applyTheme(){
   if(state.theme==='auto')document.documentElement.removeAttribute('data-theme');
@@ -639,23 +538,25 @@ $('#themeSeg').addEventListener('click',e=>{
   state.theme=b.dataset.t; store.set('theme',state.theme); applyTheme();
 });
 
-$('#bannerClose').onclick=()=>{$('#voiceBanner').classList.remove('show');store.set('bannerDismissed',true)};
+$('#bannerClose').onclick=()=>{$('#voiceBanner').classList.remove('show');store.set('bannerDismissed',true);setHeadVar()};
 $('#bannerHelp').onclick=()=>{$('#voiceBanner').classList.remove('show');openSheet(true)};
 
 /* install */
 let deferred=null;
-window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferred=e;$('#installBtn').style.display='grid'});
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferred=e;$('#installBtn').style.display='grid';setHeadVar()});
 $('#installBtn').onclick=async()=>{
   if(!deferred){openSheet(true);return}
   $('#installBtn').style.display='none';
   deferred.prompt(); try{await deferred.userChoice}catch(e){} deferred=null;
 };
-window.addEventListener('appinstalled',()=>{$('#installBtn').style.display='none'});
+addEventListener('appinstalled',()=>{$('#installBtn').style.display='none'});
 
 /* init */
 rateEl.value=state.rate; rateLabel(); applyTheme();
 $('#genderSeg').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.g===state.gender)));
-catsRender(); render();
+$('#count').textContent=DATA.reduce((n,c)=>n+c.items.length,0);
+render(); setHeadVar();
+if(window.ResizeObserver)new ResizeObserver(setHeadVar).observe($('#head'));
 /* offline support */
 if('serviceWorker' in navigator){
   window.addEventListener('load',()=>{
