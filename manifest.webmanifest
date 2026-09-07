@@ -1,0 +1,20 @@
+{
+  "name": "Parla! — Italian Travel Phrases",
+  "short_name": "Parla!",
+  "description": "An offline Italian phrasebook for travelling in Italy, with spoken pronunciation.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "id": "parla-italian-phrases",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0e1116",
+  "theme_color": "#0e1116",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["travel", "education"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
