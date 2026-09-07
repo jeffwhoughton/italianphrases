@@ -49,17 +49,28 @@
     margin:0;background:var(--bg);color:var(--ink);
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
     font-size:16px;line-height:1.45;
-    padding-bottom:calc(10px + var(--safe-b));
+    padding-top:var(--head-full,92px);
+    padding-bottom:calc(18px + var(--safe-b));
   }
   button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-align:left}
   :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
   /* ---------- header ---------- */
   header{
-    position:sticky;top:0;z-index:50;background:var(--bg);
-    border-bottom:1px solid var(--line);padding:9px 12px 8px;
+    position:fixed;top:0;left:0;right:0;z-index:50;background:var(--bg);
+    border-bottom:1px solid var(--line);padding:8px 12px;
+    display:flex;flex-direction:column;gap:8px;
   }
-  .bar{display:flex;align-items:center;gap:9px;margin-bottom:8px}
+  header.compact{gap:0}
+  .bar{
+    display:flex;align-items:center;gap:9px;
+    max-height:40px;overflow:hidden;opacity:1;
+    transition:max-height .2s ease,opacity .14s ease;
+  }
+  header.compact .bar{
+    max-height:0;opacity:0;pointer-events:none;visibility:hidden;
+    transition:max-height .2s ease,opacity .12s ease,visibility 0s linear .2s;
+  }
   .brand{display:flex;align-items:center;gap:8px;min-width:0}
   .brand h1{margin:0;font-size:18px;letter-spacing:-.02em;font-weight:800;white-space:nowrap}
   .flag{display:inline-flex;height:12px;width:19px;border-radius:3px;overflow:hidden;box-shadow:0 0 0 1px var(--line2) inset;flex:none}
@@ -74,12 +85,18 @@
   }
   .iconbtn:active{transform:scale(.94)}
 
-  .cats{display:flex;flex-wrap:wrap;gap:5px}
-  .cat{
-    padding:5px 10px;border-radius:999px;background:var(--chip);
-    border:1px solid var(--line);color:var(--chipink);
-    font-size:12.5px;font-weight:600;white-space:nowrap;line-height:1.35;
+  .cats{
+    display:flex;flex-wrap:nowrap;gap:4px;overflow-x:auto;
+    touch-action:pan-x;overscroll-behavior-x:contain;
+    scrollbar-width:none;-ms-overflow-style:none;
   }
+  .cats::-webkit-scrollbar{display:none}
+  .cat{
+    flex:none;padding:4px 10px;border-radius:999px;background:var(--chip);
+    border:1px solid var(--line);color:var(--chipink);
+    font-size:11.5px;font-weight:700;white-space:nowrap;line-height:1.4;
+  }
+  .cat.saved{padding:4px 9px;font-size:12.5px}
   .cat[aria-current="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
   @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .cat[aria-current="true"]{color:#08120d}}
   :root[data-theme="dark"] .cat[aria-current="true"]{color:#08120d}
@@ -88,7 +105,7 @@
 
   /* ---------- banner ---------- */
   .banner{
-    margin:10px 12px 0;padding:10px 12px;border-radius:12px;
+    margin:8px 12px 0;padding:10px 12px;border-radius:12px;
     background:var(--bg2);border:1px solid var(--line);box-shadow:var(--shadow);
     font-size:13px;color:var(--ink2);display:none;gap:9px;align-items:flex-start;
   }
@@ -146,9 +163,6 @@
   .fav[aria-pressed="true"]{color:var(--star)}
   .fav:active{transform:scale(.9)}
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-
-  footer{padding:20px 16px 6px;text-align:center;color:var(--ink3);font-size:11.5px;line-height:1.6}
-  footer b{color:var(--ink2)}
 
   /* ---------- settings sheet ---------- */
   .scrim{position:fixed;inset:0;background:rgba(8,10,14,.5);z-index:90;opacity:0;pointer-events:none;transition:opacity .18s}
@@ -209,11 +223,6 @@
 
 <main id="list"></main>
 
-<footer>
-  <b><span id="count">—</span> phrases · works offline</b><br>
-  Tap a card to hear it, <span aria-hidden="true">☆</span> to pin it to <b>Saved</b>.
-</footer>
-
 <div class="scrim" id="scrim"></div>
 <section class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Settings" aria-hidden="true">
   <div class="grab"></div>
@@ -271,7 +280,7 @@
 
 <script>
 const DATA=[
-{id:"basics",en:"Essentials",it:"Le basi",items:[
+{id:"basics",en:"Essentials",short:"Basics",it:"Le basi",items:[
  {en:"Hello / Hi",it:"Ciao",note:"With staff, say Buongiorno"},
  {en:"Goodbye",it:"Arrivederci"},
  {en:"Good morning / Good day",it:"Buongiorno",note:"Until late afternoon"},
@@ -280,15 +289,13 @@ const DATA=[
  {en:"No",it:"No"},
  {en:"Please",it:"Per favore"},
  {en:"Thank you",it:"Grazie"},
- {en:"No, thank you",it:"No, grazie"},
  {en:"You're welcome",it:"Prego",note:"Also 'go ahead' / 'after you'"},
  {en:"Excuse me",it:"Mi scusi"},
- {en:"OK / That's fine",it:"Va bene"},
  {en:"How much is it?",it:"Quanto costa?"},
  {en:"Where is it?",it:"Dov'è?",note:"Then point at what you mean"},
  {en:"One to ten",it:"Uno, due, tre, quattro, cinque, sei, sette, otto, nove, dieci",wide:true}
 ]},
-{id:"me",en:"About me",it:"Chi sono",items:[
+{id:"me",en:"About me",short:"Me",it:"Chi sono",items:[
  {en:"I am Canadian",it:"Sono canadese"},
  {en:"My name is Jeff",it:"Mi chiamo Jeff"},
  {en:"Nice to meet you",it:"Piacere"},
@@ -296,7 +303,7 @@ const DATA=[
  {en:"Do you speak English?",it:"Parla inglese?"},
  {en:"I don't understand",it:"Non capisco"}
 ]},
-{id:"diet",en:"Vegetarian",it:"Sono vegetariano",items:[
+{id:"diet",en:"Vegetarian",short:"Veg",it:"Sono vegetariano",items:[
  {en:"I am vegetarian",it:"Sono vegetariano",f:"Sono vegetariana"},
  {en:"No meat",it:"Senza carne"},
  {en:"I don't eat meat",it:"Non mangio carne",note:"Prosciutto often isn't counted as 'meat'"},
@@ -304,7 +311,7 @@ const DATA=[
  {en:"Yes, I do eat fish",it:"Sì, mangio il pesce",note:"Follows on from 'Sono vegetariano'"},
  {en:"He doesn't eat fish",it:"Lui non mangia il pesce"}
 ]},
-{id:"food",en:"Food & drink",it:"Al ristorante",items:[
+{id:"food",en:"Food & drink",short:"Food",it:"Al ristorante",items:[
  {en:"A table for two, please",it:"Un tavolo per due, per favore"},
  {en:"Cheers!",it:"Salute!"},
  {en:"I'll have wine",it:"Prendo del vino"},
@@ -318,7 +325,7 @@ const DATA=[
  {en:"The bill, please",it:"Il conto, per favore"},
  {en:"Can I pay by card?",it:"Posso pagare con la carta?"}
 ]},
-{id:"go",en:"Getting around",it:"In giro",items:[
+{id:"go",en:"Getting around",short:"Travel",it:"In giro",items:[
  {en:"Where is the bathroom?",it:"Dov'è il bagno?"},
  {en:"Rome",it:"Roma"},
  {en:"Florence",it:"Firenze"},
@@ -409,10 +416,10 @@ function sections(){
   const out=[];
   const saved=[];
   DATA.forEach(c=>c.items.forEach(p=>{if(state.favs.has(p.en))saved.push(p)}));
-  if(saved.length)out.push({id:'saved',en:'Saved',sub:'I preferiti',star:true,items:saved});
+  if(saved.length)out.push({id:'saved',en:'Saved',short:'★',sub:'I preferiti',star:true,items:saved});
   DATA.forEach(c=>{
     const items=c.items.filter(p=>!state.favs.has(p.en));
-    if(items.length)out.push({id:c.id,en:c.en,sub:c.it,items});
+    if(items.length)out.push({id:c.id,en:c.en,short:c.short,sub:c.it,items});
   });
   return out;
 }
@@ -432,18 +439,48 @@ function catsRender(secs){
   if(el.dataset.want!==want){
     el.dataset.want=want;
     el.innerHTML=secs.map(s=>
-      `<button class="cat${s.star?' saved':''}" data-go="sec-${s.id}">${esc(s.en)}</button>`
+      `<button class="cat${s.star?' saved':''}" data-go="sec-${s.id}" aria-label="Jump to ${esc(s.en)}">${esc(s.short||s.en)}</button>`
     ).join('');
   }
   spy();
 }
 
 /* ---------------- jump + scroll spy ---------------- */
-function headH(){return $('#head').offsetHeight}
-function setHeadVar(){document.documentElement.style.setProperty('--head',headH()+'px')}
+const head=$('#head'), bar=document.querySelector('.bar');
+let GAP=null, BARBLOCK=0, FULL=0;
+function headH(){return head.offsetHeight}
+function isCompact(){return head.classList.contains('compact')}
 
+/* --head-full is only ever written while the header is expanded, so collapsing it
+   never changes body padding — the page cannot shift under your thumb. */
+function setHeadVar(){
+  if(!isCompact()){
+    if(GAP===null)GAP=parseFloat(getComputedStyle(head).rowGap)||0;
+    BARBLOCK=(bar.scrollHeight||0)+GAP;
+    FULL=head.offsetHeight;
+    document.documentElement.style.setProperty('--head-full',FULL+'px');
+  }
+  document.documentElement.style.setProperty('--head',head.offsetHeight+'px');
+}
+
+const COMPACT_ON=80, COMPACT_OFF=24;
+function collapse(){
+  const y=window.scrollY;
+  if(!isCompact()&&y>COMPACT_ON)head.classList.add('compact');
+  else if(isCompact()&&y<COMPACT_OFF)head.classList.remove('compact');
+}
+
+
+let pinned=null;
+['touchstart','wheel','keydown'].forEach(ev=>
+  addEventListener(ev,()=>{if(pinned){pinned=null;spy()}},{passive:true}));
 
 function spy(){
+  if(pinned){
+    document.querySelectorAll('.cat').forEach(b=>
+      b.setAttribute('aria-current',String(b.dataset.go===pinned)));
+    return;
+  }
   const line=headH()+10;
   const heads=[...document.querySelectorAll('.grouphead')];
   let cur=heads[0];
@@ -455,7 +492,7 @@ function spy(){
 let ticking=false;
 addEventListener('scroll',()=>{
   if(ticking)return; ticking=true;
-  requestAnimationFrame(()=>{spy();ticking=false});
+  requestAnimationFrame(()=>{collapse();spy();ticking=false});
 },{passive:true});
 addEventListener('resize',()=>{setHeadVar();spy()});
 
@@ -463,7 +500,12 @@ const noMotion=window.matchMedia?matchMedia('(prefers-reduced-motion: reduce)'):
 $('#cats').addEventListener('click',e=>{
   const b=e.target.closest('[data-go]'); if(!b)return;
   const el=document.getElementById(b.dataset.go); if(!el)return;
-  const top=window.scrollY + el.getBoundingClientRect().top - headH() - 6;
+  pinned=b.dataset.go;
+  const base=window.scrollY + el.getBoundingClientRect().top;
+  /* the header will be collapsed by the time we land, unless we land near the top */
+  let top=base - (FULL - BARBLOCK) - 6;
+  if(top<=COMPACT_ON)top=base - FULL - 6;
+  top=Math.max(0,top);
   try{
     window.scrollTo({top,behavior:noMotion.matches?'auto':'smooth'});
   }catch(err){
@@ -560,9 +602,8 @@ addEventListener('appinstalled',()=>{$('#installBtn').style.display='none'});
 /* init */
 rateEl.value=state.rate; rateLabel(); applyTheme();
 $('#genderSeg').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.g===state.gender)));
-$('#count').textContent=DATA.reduce((n,c)=>n+c.items.length,0);
-render(); setHeadVar();
-if(window.ResizeObserver)new ResizeObserver(setHeadVar).observe($('#head'));
+render(); setHeadVar(); collapse();
+if(window.ResizeObserver)new ResizeObserver(setHeadVar).observe(head);
 /* offline support */
 if('serviceWorker' in navigator){
   window.addEventListener('load',()=>{

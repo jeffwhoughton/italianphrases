@@ -1,5 +1,5 @@
 /* Parla! service worker — precache everything, serve offline first. */
-const VERSION = 'parla-v8';
+const VERSION = 'parla-v9';
 const ASSETS = [
   './',
   './index.html',
