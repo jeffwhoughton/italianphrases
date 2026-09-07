@@ -1,6 +1,6 @@
 # Parla! — Italian travel phrasebook (PWA)
 
-An offline-first progressive web app: 45 travel phrases in 5 sections, laid out two cards
+An offline-first progressive web app: 43 travel phrases in 5 sections, laid out two cards
 to a row. Each card shows the English and the Italian; tapping it speaks the Italian out
 loud.
 
@@ -66,8 +66,10 @@ paths in `manifest.webmanifest` and the `canonical`/`og:` tags in `index.html` t
   on a moving train. Tapping the card that's currently talking stops it.
 - **☆** — pins a phrase to **Saved** at the top of the list. A pinned phrase moves there
   rather than being copied, so it only ever appears once.
-- **The chips in the header** stay on screen and jump you to a section; the one you're
-  currently looking at is highlighted as you scroll.
+- **The chips in the header** stay on screen at all times and scroll you to a section; the
+  one you're currently in is highlighted. Once you scroll down, the title and gear button
+  fold away and only the chip strip remains, so the list gets more of the screen. Scroll
+  back to the top to bring them back.
 - **Settings → Speaking about yourself** — switches gendered phrases between
   *"Sono vegetariano"* and *"Sono vegetariana"*.
 - **Settings → Speaking speed** — defaults to 0.70×, well under native pace, which is what
@@ -75,7 +77,7 @@ paths in `manifest.webmanifest` and the `canonical`/`og:` tags in `index.html` t
 
 ## Editing the phrases
 
-All 45 phrases live in one `const DATA = [...]` array near the top of the `<script>` block
+All 43 phrases live in one `const DATA = [...]` array near the top of the `<script>` block
 in `index.html`. Each entry looks like:
 
 ```js
@@ -85,6 +87,9 @@ in `index.html`. Each entry looks like:
  wide:true}                     // optional: card spans both columns, for long lines
 ```
 
+Each section also carries a `short:` label — that's what the header chip shows, and it has
+to stay short enough that all the chips fit one row on a 320px phone.
+
 To add a section, copy one of the `{id:…, en:…, it:…, items:[…]}` blocks. The header chips,
 the phrase count in the footer and the scroll-spy all derive from `DATA`, so nothing else
 needs updating.
@@ -92,5 +97,5 @@ needs updating.
 Notes cost vertical space in a two-column layout — a card with a note is roughly a third
 taller than one without — so only add one where it changes what you'd say.
 
-After editing, bump `const VERSION = 'parla-v8'` in `sw.js` so installed phones pick up the
+After editing, bump `const VERSION = 'parla-v9'` in `sw.js` so installed phones pick up the
 new version instead of serving the cached old one.

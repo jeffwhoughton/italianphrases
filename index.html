@@ -368,8 +368,14 @@ if('speechSynthesis' in window){
 let speakingCard=null;
 function speak(text,card){
   if(!('speechSynthesis' in window))return;
+  /* tapping the card that's already talking stops it */
+  const stopOnly = !!card && speakingCard===card;
   try{speechSynthesis.cancel()}catch(e){}
   if(speakingCard){speakingCard.classList.remove('speaking');speakingCard=null}
+  if(stopOnly){
+    if(navigator.vibrate){try{navigator.vibrate(6)}catch(e){}}
+    return;
+  }
   const u=new SpeechSynthesisUtterance(text.replace(/\s*\/\s*/g,', '));
   u.lang='it-IT';
   if(itVoice)u.voice=itVoice;
